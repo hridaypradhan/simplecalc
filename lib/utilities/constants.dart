@@ -4,5 +4,9 @@ import 'package:flutter/material.dart';
 final Color themeColor = Colors.black;
 
 const title = 'Simple Calc';
+const overweightText = 'overweight';
+const normalText = 'normal';
+const underweightText = 'underweight';
+const obeseText = 'obese';
 
 final Color selectedColor = Colors.grey[400];
