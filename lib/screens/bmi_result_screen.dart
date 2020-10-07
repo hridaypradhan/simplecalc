@@ -20,7 +20,8 @@ class BMIResultScreen extends StatelessWidget {
     else
       category = obeseText;
     return Text(
-      'Your BMI is $bmi, which indicates that you are in the $category category.',
+      'Your BMI is $bmi, which indicates that you are in the ${category.toUpperCase()} category.',
+      textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 20.0,
         color: Colors.white,
@@ -53,7 +54,10 @@ class BMIResultScreen extends StatelessWidget {
             SizedBox(
               height: 50.0,
             ),
-            generateMessage(bmi),
+            Container(
+              width: 300.0,
+              child: generateMessage(bmi),
+            ),
           ],
         ),
       ),

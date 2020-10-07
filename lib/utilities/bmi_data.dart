@@ -44,7 +44,7 @@ class BMIData extends ChangeNotifier {
     else if (_bmi <= 30)
       _bmiColour = Colors.red;
     else
-      _bmiColour = Colors.red[400];
+      _bmiColour = Colors.red[900];
   }
 
   int getHeight() => _height;
