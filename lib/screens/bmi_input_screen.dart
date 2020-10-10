@@ -20,6 +20,7 @@ class BMIInputScreen extends StatelessWidget {
         return Material(
           color: themeColor,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               PageHead(
                 image: 'images/bmi.png',

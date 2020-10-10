@@ -13,20 +13,36 @@ class CurrencyScreen extends StatelessWidget {
         color: themeColor,
         child: Column(
           children: <Widget>[
-            PageHead(
-              image: 'images/currency.png',
-              heading: 'Currency Converter',
+            Flexible(
+              flex: 2,
+              child: PageHead(
+                image: 'images/currency.png',
+                heading: 'Currency Converter',
+              ),
             ),
-            SizedBox(
-              height: 10.0,
+            Spacer(
+              flex: 1,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                CurrencyCard(),
-                CurrencyCard(),
-              ],
+            Flexible(
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CurrencyCard(flex: 2),
+                  Flexible(
+                    flex: 1,
+                    child: Icon(
+                      Icons.compare_arrows,
+                      size: 40.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  CurrencyCard(flex: 2),
+                ],
+              ),
+            ),
+            Spacer(
+              flex: 4,
             ),
           ],
         ),
@@ -34,4 +50,3 @@ class CurrencyScreen extends StatelessWidget {
     );
   }
 }
-
