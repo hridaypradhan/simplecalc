@@ -58,6 +58,9 @@ class BMIResultScreen extends StatelessWidget {
               width: 300.0,
               child: generateMessage(bmi),
             ),
+            Row(
+              children: <Widget>[],
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_calc/utilities/constants.dart';
 
 class ResultCard extends StatelessWidget {
   final String bmi;
@@ -10,7 +11,7 @@ class ResultCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Colors.grey[700],
+        color: Colors.white,
         borderRadius: BorderRadius.all(
           Radius.circular(20.0),
         ),
@@ -20,7 +21,7 @@ class ResultCard extends StatelessWidget {
           Text(
             'Your current BMI',
             style: TextStyle(
-              color: Colors.white,
+              color: themeColor,
               fontSize: 20.0,
             ),
           ),
@@ -28,7 +29,7 @@ class ResultCard extends StatelessWidget {
             bmi,
             style: TextStyle(
               fontSize: 110.0,
-              color: Colors.white,
+              color: themeColor,
             ),
           ),
         ],
