@@ -6,6 +6,7 @@ import 'package:simple_calc/screens/calculator_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_calc/screens/currency_screen.dart';
 import 'package:simple_calc/utilities/bmi_data.dart';
+import 'package:simple_calc/utilities/currency_data.dart';
 import 'package:simple_calc/utilities/output_data.dart';
 
 void main() {
@@ -32,7 +33,10 @@ class Calc extends StatelessWidget {
               child: BMIInputScreen(),
             ),
         BMIResultScreen.id: (context) => BMIResultScreen(),
-        CurrencyScreen.id: (context) => CurrencyScreen(),
+        CurrencyScreen.id: (context) => ChangeNotifierProvider(
+              create: (context) => CurrencyData(),
+              child: CurrencyScreen(),
+            ),
       },
     );
   }
