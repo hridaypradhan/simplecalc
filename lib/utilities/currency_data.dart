@@ -4,7 +4,7 @@ import 'package:simple_calc/utilities/currency.dart';
 class CurrencyData extends ChangeNotifier {
   double _currencyAmount1 = 1, _currencyAmount2 = 1;
   Currency _currentCurrency1 = _currencies[0],
-      _currentCurrency2 = _currencies[1];
+      _currentCurrency2 = _currencies[0];
 
   static final List<Currency> _currencies = [
     Currency('USD', 'United States Dollar', '\$'),
@@ -17,9 +17,9 @@ class CurrencyData extends ChangeNotifier {
   ];
 
   void changeCurrency1(int index) {
-    print(_currentCurrency1.shortForm);
+    print('Currency 1 was ' + _currentCurrency1.shortForm);
     _currentCurrency1 = _currencies[index];
-    print(_currentCurrency1.shortForm);
+    print('It now is ' + _currentCurrency1.shortForm);
     notifyListeners();
   }
 

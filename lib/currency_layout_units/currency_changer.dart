@@ -16,8 +16,7 @@ class CurrencyChanger extends StatelessWidget {
             Provider.of<CurrencyData>(context, listen: false)
                 .changeCurrency1(selectedIndex);
           },
-          children: Provider.of<CurrencyData>(context, listen: false)
-              .currencyListAsWidgets,
+          children: Provider.of<CurrencyData>(context).currencyListAsWidgets,
         ),
         padding: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
