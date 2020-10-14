@@ -12,7 +12,6 @@ class CurrencyCard extends StatelessWidget {
 
   CurrencyCard(
       {this.flex, @required this.changeAmount, @required this.currency});
-
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -34,8 +33,8 @@ class CurrencyCard extends StatelessWidget {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
-                  builder: (context) => ChangeNotifierProvider.value(
-                    value: CurrencyData(),
+                  builder: (context) => ChangeNotifierProvider(
+                    create: (context) => CurrencyData(),
                     child: CurrencyChanger(),
                   ),
                 );
@@ -47,7 +46,7 @@ class CurrencyCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        '${currency.shortForm}',
+                        currency.shortForm,
                         style: TextStyle(
                           letterSpacing: 0.5,
                           fontSize: 25.0,
@@ -57,7 +56,7 @@ class CurrencyCard extends StatelessWidget {
                         height: 2.0,
                       ),
                       Text(
-                        '${currency.name}',
+                        currency.name,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 15.0,
@@ -93,7 +92,7 @@ class CurrencyCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${currency.symbol}',
+                  currency.symbol,
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
