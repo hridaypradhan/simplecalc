@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_calc/utilities/constants.dart';
 import 'package:simple_calc/utilities/currency.dart';
-import 'package:simple_calc/utilities/currency_data.dart';
 import 'currency_changer.dart';
 
 class CurrencyCard extends StatelessWidget {
-  final int flex;
+  final int flex, cardNumber;
   final Function changeAmount;
   final Currency currency;
 
   CurrencyCard(
-      {this.flex, @required this.changeAmount, @required this.currency});
+      {this.flex,
+      @required this.changeAmount,
+      @required this.currency,
+      @required this.cardNumber});
+
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -33,9 +35,8 @@ class CurrencyCard extends StatelessWidget {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
-                  builder: (context) => ChangeNotifierProvider(
-                    create: (context) => CurrencyData(),
-                    child: CurrencyChanger(),
+                  builder: (context) => CurrencyChanger(
+                    cardNumber: cardNumber,
                   ),
                 );
               },
@@ -48,6 +49,7 @@ class CurrencyCard extends StatelessWidget {
                       Text(
                         currency.shortForm,
                         style: TextStyle(
+                          fontWeight: FontWeight.w400,
                           letterSpacing: 0.5,
                           fontSize: 25.0,
                         ),

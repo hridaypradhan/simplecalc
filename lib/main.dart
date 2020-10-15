@@ -21,23 +21,21 @@ class Calc extends StatelessWidget {
         DeviceOrientation.portraitUp,
       ],
     );
-    return MaterialApp(
-      initialRoute: CalculatorScreen.id,
-      routes: {
-        CalculatorScreen.id: (context) => ChangeNotifierProvider(
-              create: (context) => OutputData(),
-              child: CalculatorScreen(),
-            ),
-        BMIInputScreen.id: (context) => ChangeNotifierProvider(
-              create: (context) => BMIData(),
-              child: BMIInputScreen(),
-            ),
-        BMIResultScreen.id: (context) => BMIResultScreen(),
-        CurrencyScreen.id: (context) => ChangeNotifierProvider(
-              create: (context) => CurrencyData(),
-              child: CurrencyScreen(),
-            ),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => OutputData()),
+        ChangeNotifierProvider(create: (context) => BMIData()),
+        ChangeNotifierProvider(create: (context) => CurrencyData()),
+      ],
+      child: MaterialApp(
+        initialRoute: CalculatorScreen.id,
+        routes: {
+          CalculatorScreen.id: (context) => CalculatorScreen(),
+          BMIInputScreen.id: (context) => BMIInputScreen(),
+          BMIResultScreen.id: (context) => BMIResultScreen(),
+          CurrencyScreen.id: (context) => CurrencyScreen(),
+        },
+      ),
     );
   }
 }

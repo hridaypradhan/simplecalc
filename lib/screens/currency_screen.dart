@@ -29,36 +29,45 @@ class CurrencyScreen extends StatelessWidget {
               flex: 1,
             ),
             Flexible(
-                flex: 4,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    CurrencyCard(
-                      currency: Provider.of<CurrencyData>(context).currency1,
-                      flex: 4,
-                      changeAmount: (String newValue) {
-                        Provider.of<CurrencyData>(context)
-                            .changeCurrencyAmount1(newValue);
-                      },
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Icon(
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CurrencyCard(
+                    currency: Provider.of<CurrencyData>(context).currency1,
+                    flex: 4,
+                    changeAmount: (String newValue) {
+                      Provider.of<CurrencyData>(context)
+                          .changeCurrencyAmount1(newValue);
+                    },
+                    cardNumber: 1,
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: IconButton(
+                      icon: Icon(
                         Icons.compare_arrows,
                         size: 40.0,
                         color: Colors.white,
                       ),
-                    ),
-                    CurrencyCard(
-                      currency: Provider.of<CurrencyData>(context).currency2,
-                      changeAmount: (String newValue) {
-                        Provider.of<CurrencyData>(context)
-                            .changeCurrencyAmount2(newValue);
+                      onPressed: () {
+                        Provider.of<CurrencyData>(context, listen: false)
+                            .swapCurrencies();
                       },
-                      flex: 4,
                     ),
-                  ],
-                )),
+                  ),
+                  CurrencyCard(
+                    currency: Provider.of<CurrencyData>(context).currency2,
+                    changeAmount: (String newValue) {
+                      Provider.of<CurrencyData>(context)
+                          .changeCurrencyAmount2(newValue);
+                    },
+                    flex: 4,
+                    cardNumber: 2,
+                  ),
+                ],
+              ),
+            ),
             Spacer(
               flex: 3,
             ),
