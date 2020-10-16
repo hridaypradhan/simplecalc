@@ -34,12 +34,9 @@ class CurrencyScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   CurrencyCard(
-                    currency: Provider.of<CurrencyData>(context).currency1,
+                    currency:
+                        Provider.of<CurrencyData>(context).currentCurrency1,
                     flex: 4,
-                    changeAmount: (String newValue) {
-                      Provider.of<CurrencyData>(context)
-                          .changeCurrencyAmount1(newValue);
-                    },
                     cardNumber: 1,
                   ),
                   Flexible(
@@ -57,11 +54,8 @@ class CurrencyScreen extends StatelessWidget {
                     ),
                   ),
                   CurrencyCard(
-                    currency: Provider.of<CurrencyData>(context).currency2,
-                    changeAmount: (String newValue) {
-                      Provider.of<CurrencyData>(context)
-                          .changeCurrencyAmount2(newValue);
-                    },
+                    currency:
+                        Provider.of<CurrencyData>(context).currentCurrency2,
                     flex: 4,
                     cardNumber: 2,
                   ),

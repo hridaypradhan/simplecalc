@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_calc/utilities/constants.dart';
 import 'package:simple_calc/utilities/currency.dart';
+import 'package:simple_calc/utilities/currency_data.dart';
 import 'currency_changer.dart';
 
 class CurrencyCard extends StatelessWidget {
+  final TextEditingController textEditingController = TextEditingController();
   final int flex, cardNumber;
-  final Function changeAmount;
   final Currency currency;
 
-  CurrencyCard(
-      {this.flex,
-      @required this.changeAmount,
-      @required this.currency,
-      @required this.cardNumber});
+  CurrencyCard({this.flex, @required this.currency, @required this.cardNumber});
 
   @override
   Widget build(BuildContext context) {
+    textEditingController.text = cardNumber == 1
+        ? Provider.of<CurrencyData>(context).currencyAmount1.toString()
+        : Provider.of<CurrencyData>(context).currencyAmount2.toString();
+
+    textEditingController.selection =
+        TextSelection.collapsed(offset: textEditingController.text.length);
+
     return Flexible(
       flex: flex,
       child: Container(
@@ -77,11 +82,20 @@ class CurrencyCard extends StatelessWidget {
               children: <Widget>[
                 Flexible(
                   child: TextField(
-                    onChanged: changeAmount,
+                    controller: textEditingController,
+                    onEditingComplete: () {
+                      cardNumber == 1
+                          ? Provider.of<CurrencyData>(context, listen: false)
+                              .changeCurrencyAmount1(textEditingController.text)
+                          : Provider.of<CurrencyData>(context, listen: false)
+                              .changeCurrencyAmount2(
+                                  textEditingController.text);
+                    },
                     autofocus: true,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       fontSize: 30.0,
+                      letterSpacing: 2.0,
                     ),
                     cursorColor: themeColor,
                     decoration: InputDecoration(
