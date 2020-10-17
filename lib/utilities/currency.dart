@@ -6,4 +6,8 @@ class Currency {
     this.name = name;
     this.shortForm = shortForm;
   }
+
+  String toString() {
+    return '$symbol - $name - $shortForm\n';
+  }
 }

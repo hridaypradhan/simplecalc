@@ -5,11 +5,17 @@ import 'package:simple_calc/utilities/constants.dart';
 import 'package:simple_calc/utilities/currency_data.dart';
 import 'package:simple_calc/utilities/page_head.dart';
 
-class CurrencyScreen extends StatelessWidget {
+class CurrencyScreen extends StatefulWidget {
   static final String id = 'currency_screen';
 
   @override
+  _CurrencyScreenState createState() => _CurrencyScreenState();
+}
+
+class _CurrencyScreenState extends State<CurrencyScreen> {
+  @override
   Widget build(BuildContext context) {
+    // Provider.of<CurrencyData>(context).getOnlineCurrencyData();
     return Material(
       child: Container(
         color: themeColor,
@@ -69,5 +75,11 @@ class CurrencyScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Provider.of<CurrencyData>(context).getOnlineCurrencyData();
   }
 }

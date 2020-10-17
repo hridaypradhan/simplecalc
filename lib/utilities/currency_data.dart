@@ -1,25 +1,58 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:simple_calc/utilities/currency.dart';
+import 'package:http/http.dart' as http;
 
 class CurrencyData extends ChangeNotifier {
+  CurrencyData() {
+    getOnlineCurrencyData();
+  }
+
   double _currencyAmount1 = 1.0,
       _currencyAmount2 = 72.0,
       _conversionRate = 72.0;
 
-  int _currencyIndex1 = 0, _currencyIndex2 = 1;
+  int _currencyIndex1 = 50, _currencyIndex2 = 15;
 
   Currency _currentCurrency1 = _currencies[0],
       _currentCurrency2 = _currencies[1];
 
+  String _url =
+      'https://free.currconv.com/api/v7/currencies?apiKey=f964338e4204cb7e3838';
+
+  http.Response response;
+
   static final List<Currency> _currencies = [
-    Currency('USD', 'United States Dollar', '\$'),
-    Currency('INR', 'Indian Rupee', 'Rs'),
+    Currency('USD', 'U.S. Dollar', '\$'),
+    Currency('INR', 'Indian Rupee', '₹'),
   ];
 
   final List<Text> _currenciesAsWidgets = [
-    Text('USD'),
-    Text('INR'),
+    Text('U.S. dollar : USD'),
+    Text('Indian rupee : INR'),
   ];
+
+  void getOnlineCurrencyData() async {
+    response = await http.get(_url);
+
+    Map map = jsonDecode(response.body)['results'];
+
+    _currencies.clear();
+    _currenciesAsWidgets.clear();
+
+    map.entries.forEach((e) {
+      try {
+        _currencies.add(Currency(
+            e.value['id'], e.value['currencyName'], e.value['currencySymbol']));
+      } catch (f) {
+        _currencies.add(
+            Currency(e.value['id'], e.value['currencyName'], e.value['id']));
+      }
+
+      _currenciesAsWidgets
+          .add(Text('${e.value['currencyName']} : ${e.value['id']}'));
+    });
+  }
 
   void updateAmount2() {
     _currencyAmount2 = _conversionRate * _currencyAmount1;
@@ -38,6 +71,9 @@ class CurrencyData extends ChangeNotifier {
     _currencyAmount2 = temp2;
 
     _conversionRate = 1 / _conversionRate;
+
+    _currencies.clear();
+    _currenciesAsWidgets.clear();
 
     notifyListeners();
   }
