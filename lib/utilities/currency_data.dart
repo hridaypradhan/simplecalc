@@ -119,8 +119,10 @@ class CurrencyData extends ChangeNotifier {
   }
 
   void updateConversionRate() async {
-    http.Response rateResponse = await http.get(
-        'https://free.currconv.com/api/v7/convert?q=${_currentCurrency1.shortForm}_${_currentCurrency2.shortForm}&compact=ultra&apiKey=f964338e4204cb7e3838');
+    http.Response rateResponse =
+        await http.get('https://free.currconv.com/api/v7/convert?q='
+            '${_currentCurrency1.shortForm}_${_currentCurrency2.shortForm}'
+            '&compact=ultra&apiKey=f964338e4204cb7e3838');
     _currencyAmount2 = _currencyAmount1 *
         jsonDecode(rateResponse.body)[
             '${_currentCurrency1.shortForm}_${_currentCurrency2.shortForm}'];
