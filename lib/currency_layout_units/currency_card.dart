@@ -91,7 +91,6 @@ class CurrencyCard extends StatelessWidget {
                               .changeCurrencyAmount2(
                                   textEditingController.text);
                     },
-                    autofocus: true,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       fontSize: 30.0,

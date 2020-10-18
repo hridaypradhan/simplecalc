@@ -22,7 +22,7 @@ class CurrencyChanger extends StatelessWidget {
       child: Container(
         child: CupertinoPicker(
           scrollController: _fixedExtentScrollController,
-          itemExtent: 32.0,
+          itemExtent: 45.0,
           onSelectedItemChanged: (int selectedIndex) {
             cardNumber == 1
                 ? Provider.of<CurrencyData>(context, listen: false)

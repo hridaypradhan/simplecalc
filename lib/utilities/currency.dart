@@ -1,4 +1,4 @@
-class Currency {
+class Currency extends Comparable {
   String symbol, name, shortForm;
 
   Currency(String shortForm, String name, String symbol) {
@@ -9,5 +9,10 @@ class Currency {
 
   String toString() {
     return '$symbol - $name - $shortForm\n';
+  }
+
+  @override
+  int compareTo(other) {
+    return this.name.compareTo(other.name);
   }
 }

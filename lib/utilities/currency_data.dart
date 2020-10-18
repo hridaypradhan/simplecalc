@@ -9,15 +9,15 @@ class CurrencyData extends ChangeNotifier {
   }
 
   double _currencyAmount1 = 1.0,
-      _currencyAmount2 = 72.0,
-      _conversionRate = 72.0;
+      _currencyAmount2 = 73.44304,
+      _conversionRate = 73.44304;
 
-  int _currencyIndex1 = 50, _currencyIndex2 = 15;
+  int _currencyIndex1 = 156, _currencyIndex2 = 66;
 
   Currency _currentCurrency1 = _currencies[0],
       _currentCurrency2 = _currencies[1];
 
-  String _url =
+  String _currencyTextInfoUrl =
       'https://free.currconv.com/api/v7/currencies?apiKey=f964338e4204cb7e3838';
 
   http.Response response;
@@ -33,29 +33,48 @@ class CurrencyData extends ChangeNotifier {
   ];
 
   void getOnlineCurrencyData() async {
-    response = await http.get(_url);
+    response = await http.get(_currencyTextInfoUrl);
 
     Map map = jsonDecode(response.body)['results'];
 
     _currencies.clear();
     _currenciesAsWidgets.clear();
 
-    map.entries.forEach((e) {
-      try {
-        _currencies.add(Currency(
-            e.value['id'], e.value['currencyName'], e.value['currencySymbol']));
-      } catch (f) {
-        _currencies.add(
-            Currency(e.value['id'], e.value['currencyName'], e.value['id']));
-      }
+    map.entries.forEach(
+      (entry) {
+        if (entry.value['currencySymbol'] != null) {
+          _currencies.add(
+            Currency(
+              entry.value['id'],
+              entry.value['currencyName'],
+              entry.value['currencySymbol'],
+            ),
+          );
+        } else {
+          _currencies.add(
+            Currency(
+              entry.value['id'],
+              entry.value['currencyName'],
+              entry.value['id'],
+            ),
+          );
+        }
+      },
+    );
 
-      _currenciesAsWidgets
-          .add(Text('${e.value['currencyName']} : ${e.value['id']}'));
-    });
+    _currencies.sort();
+    for (var currency in _currencies)
+      _currenciesAsWidgets.add(
+        Text('${currency.name} : ${currency.shortForm}'),
+      );
   }
 
   void updateAmount2() {
     _currencyAmount2 = _conversionRate * _currencyAmount1;
+  }
+
+  void updateAmount1() {
+    _currencyAmount1 = _currencyAmount2 / _conversionRate;
   }
 
   void swapCurrencies() {
@@ -71,9 +90,6 @@ class CurrencyData extends ChangeNotifier {
     _currencyAmount2 = temp2;
 
     _conversionRate = 1 / _conversionRate;
-
-    _currencies.clear();
-    _currenciesAsWidgets.clear();
 
     notifyListeners();
   }
@@ -91,12 +107,23 @@ class CurrencyData extends ChangeNotifier {
   void changeCurrency1(int index) {
     _currentCurrency1 = _currencies[index];
     updateCurrencyIndex1();
+    updateConversionRate();
     notifyListeners();
   }
 
   void changeCurrency2(int index) {
     _currentCurrency2 = _currencies[index];
     updateCurrencyIndex2();
+    updateConversionRate();
+    notifyListeners();
+  }
+
+  void updateConversionRate() async {
+    http.Response rateResponse = await http.get(
+        'https://free.currconv.com/api/v7/convert?q=${_currentCurrency1.shortForm}_${_currentCurrency2.shortForm}&compact=ultra&apiKey=f964338e4204cb7e3838');
+    _currencyAmount2 = _currencyAmount1 *
+        jsonDecode(rateResponse.body)[
+            '${_currentCurrency1.shortForm}_${_currentCurrency2.shortForm}'];
     notifyListeners();
   }
 
@@ -108,6 +135,7 @@ class CurrencyData extends ChangeNotifier {
 
   void changeCurrencyAmount2(String newValue) {
     _currencyAmount2 = double.parse(newValue);
+    updateAmount1();
     notifyListeners();
   }
 
