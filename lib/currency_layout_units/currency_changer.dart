@@ -41,22 +41,20 @@ class CurrencyChanger extends StatelessWidget {
                     Provider.of<CurrencyData>(context).currenciesAsWidgets,
               );
             else
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(
-                      height: 10.0,
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    'Loading currency data...',
+                    style: TextStyle(
+                      fontSize: 25.0,
                     ),
-                    Text(
-                      'Loading currency data...',
-                      style: TextStyle(
-                        fontSize: 25.0,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               );
           },
         ),
