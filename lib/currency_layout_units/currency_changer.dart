@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_calc/utilities/constants.dart';
 import 'package:simple_calc/utilities/currency_data.dart';
 
 class CurrencyChanger extends StatelessWidget {
@@ -20,17 +21,44 @@ class CurrencyChanger extends StatelessWidget {
       height: 200.0,
       color: Colors.black,
       child: Container(
-        child: CupertinoPicker(
-          scrollController: _fixedExtentScrollController,
-          itemExtent: 45.0,
-          onSelectedItemChanged: (int selectedIndex) {
-            cardNumber == 1
-                ? Provider.of<CurrencyData>(context, listen: false)
-                    .changeCurrency1(selectedIndex)
-                : Provider.of<CurrencyData>(context, listen: false)
-                    .changeCurrency2(selectedIndex);
+        child: FutureBuilder(
+          future: memoizer.runOnce(() =>
+              Provider.of<CurrencyData>(context, listen: false)
+                  .getOnlineCurrencyData()),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done)
+              return CupertinoPicker(
+                scrollController: _fixedExtentScrollController,
+                itemExtent: 45.0,
+                onSelectedItemChanged: (int selectedIndex) {
+                  cardNumber == 1
+                      ? Provider.of<CurrencyData>(context, listen: false)
+                          .changeCurrency1(selectedIndex)
+                      : Provider.of<CurrencyData>(context, listen: false)
+                          .changeCurrency2(selectedIndex);
+                },
+                children:
+                    Provider.of<CurrencyData>(context).currenciesAsWidgets,
+              );
+            else
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      'Loading currency data...',
+                      style: TextStyle(
+                        fontSize: 25.0,
+                      ),
+                    ),
+                  ],
+                ),
+              );
           },
-          children: Provider.of<CurrencyData>(context).currenciesAsWidgets,
         ),
         padding: EdgeInsets.all(20.0),
         decoration: BoxDecoration(

@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_calc/utilities/currency.dart';
 import 'package:http/http.dart' as http;
 
 class CurrencyData extends ChangeNotifier {
   CurrencyData() {
-    getOnlineCurrencyData();
+    // getOnlineCurrencyData();
   }
 
   double _currencyAmount1 = 1.0,
@@ -28,45 +29,50 @@ class CurrencyData extends ChangeNotifier {
   ];
 
   final List<Text> _currenciesAsWidgets = [
-    Text('U.S. dollar : USD'),
-    Text('Indian rupee : INR'),
+    // Text('U.S. dollar : USD'),
+    // Text('Indian rupee : INR'),
   ];
 
   void getOnlineCurrencyData() async {
     response = await http.get(_currencyTextInfoUrl);
 
-    Map map = jsonDecode(response.body)['results'];
+    if (response.statusCode == 200) {
+      Map map = jsonDecode(response.body)['results'];
 
-    _currencies.clear();
-    _currenciesAsWidgets.clear();
+      _currencies.clear();
+      _currenciesAsWidgets.clear();
 
-    map.entries.forEach(
-      (entry) {
-        if (entry.value['currencySymbol'] != null) {
-          _currencies.add(
-            Currency(
-              entry.value['id'],
-              entry.value['currencyName'],
-              entry.value['currencySymbol'],
-            ),
-          );
-        } else {
-          _currencies.add(
-            Currency(
-              entry.value['id'],
-              entry.value['currencyName'],
-              entry.value['id'],
-            ),
-          );
-        }
-      },
-    );
-
-    _currencies.sort();
-    for (var currency in _currencies)
-      _currenciesAsWidgets.add(
-        Text('${currency.name} : ${currency.shortForm}'),
+      map.entries.forEach(
+        (entry) {
+          if (entry.value['currencySymbol'] != null) {
+            _currencies.add(
+              Currency(
+                entry.value['id'],
+                entry.value['currencyName'],
+                entry.value['currencySymbol'],
+              ),
+            );
+          } else {
+            _currencies.add(
+              Currency(
+                entry.value['id'],
+                entry.value['currencyName'],
+                entry.value['id'],
+              ),
+            );
+          }
+        },
       );
+
+      _currencies.sort();
+      for (var currency in _currencies)
+        _currenciesAsWidgets.add(
+          Text('${currency.name} : ${currency.shortForm}'),
+        );
+    } else {
+      _currenciesAsWidgets
+          .add(Text('API limit reached. Try again after an hour.'));
+    }
   }
 
   void updateAmount2() {

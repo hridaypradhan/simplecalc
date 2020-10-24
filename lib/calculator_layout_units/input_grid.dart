@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:simple_calc/utilities/bmi_data.dart';
 import 'package:simple_calc/utilities/number_button.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_calc/screens/navigation_drawer.dart';

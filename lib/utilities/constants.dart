@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_calc/utilities/currency_data.dart';
+import 'package:async/async.dart';
 
 ChangeNotifierProvider<CurrencyData> myNotifier;
 
@@ -14,3 +15,5 @@ const underweightText = 'underweight';
 const obeseText = 'obese';
 
 final Color selectedColor = Colors.grey[400];
+
+final AsyncMemoizer memoizer = AsyncMemoizer();

@@ -18,8 +18,9 @@ class CurrencyCard extends StatelessWidget {
         ? Provider.of<CurrencyData>(context).currencyAmount1.toString()
         : Provider.of<CurrencyData>(context).currencyAmount2.toString();
 
-    textEditingController.selection =
-        TextSelection.collapsed(offset: textEditingController.text.length);
+    textEditingController.selection = TextSelection.fromPosition(
+      TextPosition(offset: textEditingController.text.length),
+    );
 
     return Flexible(
       flex: flex,
