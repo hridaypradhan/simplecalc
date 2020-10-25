@@ -69,7 +69,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
               ),
             ),
             Spacer(
-              flex: 3,
+              flex: 2,
             ),
           ],
         ),

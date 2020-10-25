@@ -55,7 +55,7 @@ class BMIInputScreen extends StatelessWidget {
                 height: 10.0,
               ),
               AttributeCard(
-                maxValue: 250,
+                maxValue: 210,
                 minValue: 100,
                 name: 'Height',
                 units: 'cm',
