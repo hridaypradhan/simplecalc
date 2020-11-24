@@ -12,6 +12,8 @@ This project uses:
 
 ## Visuals 
 
-.jpg files are included with the code
+.jpg files are included in the directory called 'output_jpgs'
+or
+https://github.com/hridaypradhan/simplecalc/tree/master/output_jpgs
 
 
