@@ -1,8 +1,9 @@
 # simple_calc
 
-A new Flutter application.
+A 3-in-1 Simple/BMI/Currency calculator made using Flutter.
 
-## Getting Started
+
+## Description
 
 This project is a starting point for a Flutter application.
 
@@ -14,3 +15,5 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
